@@ -66,15 +66,18 @@ pub fn main(init: std.process.Init) !void {
 
                 for (meaning.definitions) |definition| {
                     try stdout.print("    {s}\n", .{definition.definition});
+                    try stdout.print("    example:{s}\n\n", .{definition.example});
                 }
 
+                try stdout.print("    synonyms: ", .{});
                 for (meaning.synonyms) |synonym| {
-                    try stdout.print("    {s},", .{synonym});
+                    try stdout.print("{s}, ", .{synonym});
                 }
                 try stdout.writeByte('\n');
 
+                try stdout.print("    antonyms: ", .{});
                 for (meaning.antonyms) |antonym| {
-                    try stdout.print("    {s},", .{antonym});
+                    try stdout.print("{s}, ", .{antonym});
                 }
                 try stdout.writeByte('\n');
             }
