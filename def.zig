@@ -2,7 +2,7 @@ const std = @import("std");
 
 const Definition = struct {
     definition: []const u8,
-    example: []const u8,
+    example: ?[]const u8 = null,
 };
 
 const Meaning = struct {
@@ -66,7 +66,11 @@ pub fn main(init: std.process.Init) !void {
 
                 for (meaning.definitions) |definition| {
                     try stdout.print("    {s}\n", .{definition.definition});
-                    try stdout.print("    example:{s}\n\n", .{definition.example});
+                    if (definition.example) |example| {
+                        try stdout.print("    example: {s}\n\n", .{example});
+                    } else {
+                        try stdout.writeByte('\n');
+                    }
                 }
 
                 try stdout.print("    synonyms: ", .{});
